@@ -15,7 +15,7 @@
 Project ini merupakan implementasi Pengolahan Citra Digital (PCD) untuk melakukan klasifikasi citra hama tanaman berdasarkan dataset gambar. Dataset yang digunakan terdiri dari tiga kelas utama, yaitu:
 
 - `catterpillar`
-- `grasshopper`
+- `mouse`
 - `snail`
 
 Tujuan utama dari project ini adalah membandingkan beberapa tahapan preprocessing citra untuk melihat pengaruhnya terhadap hasil ekstraksi fitur dan performa model klasifikasi. Proses klasifikasi dilakukan dengan memanfaatkan fitur tekstur dari citra menggunakan metode **Gray Level Co-occurrence Matrix (GLCM)**, kemudian hasil fiturnya digunakan untuk melatih beberapa model machine learning.
@@ -37,7 +37,7 @@ Project-PCD-Kelompok-16/
 │
 ├── dataset/
 │   ├── catterpillar/
-│   ├── grasshopper/
+│   ├── mouse/
 │   └── snail/
 │
 ├── percobaan/
@@ -94,7 +94,7 @@ Label yang digunakan:
 
 ```text
 catterpillar
-grasshopper
+mouse
 snail
 ```
 
@@ -156,7 +156,7 @@ Distribusi dataset:
 | Label | Jumlah Data |
 |---|---:|
 | `catterpillar` | 70 gambar |
-| `grasshopper` | 70 gambar |
+| `mouse` | 70 gambar |
 | `snail` | 70 gambar |
 | **Total** | **210 gambar** |
 
