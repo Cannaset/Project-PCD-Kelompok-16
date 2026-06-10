@@ -338,8 +338,8 @@ y = df["Label"]
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y,
-    test_size=0.3,
-    random_state=90,
+    test_size=0.2,
+    random_state=35,
     stratify=y
 )
 ```
@@ -384,7 +384,7 @@ Contoh training model:
 ```python
 knn = KNeighborsClassifier()
 svm = SVC()
-rf = RandomForestClassifier(random_state=90)
+rf = RandomForestClassifier(random_state=35)
 
 knn.fit(X_train_scaled, y_train)
 svm.fit(X_train_scaled, y_train)
@@ -418,33 +418,35 @@ print(confusion_matrix(y_test, y_pred))
 Format tabel hasil evaluasi:
 
 | Preprocessing | Model | Accuracy | Precision | Recall | F1-Score |
-|------------|------------|------------|------------|------------|------------|
-| prepo1 | KNN | 83.33% | 84.88% | 83.33% | 82.78% |
-| prepo1 | SVM | **90.48%** | **91.84%** | **90.48%** | **90.25%** |
-| prepo1 | Random Forest | 80.95% | 80.98% | 80.95% | 80.77% |
-| prepo2 | KNN | **95.24%** | **95.60%** | **95.24%** | **95.19%** |
-| prepo2 | SVM | 90.48% | 90.73% | 90.48% | 90.39% |
-| prepo2 | Random Forest | 73.81% | 74.83% | 73.81% | 73.94% |
-| prepo3 | KNN | 83.33% | 83.70% | 83.33% | 83.07% |
-| prepo3 | SVM | **88.10%** | **90.15%** | **88.10%** | **87.70%** |
-| prepo3 | Random Forest | 73.81% | 74.04% | 73.81% | 73.88% |
-| prepo4 | KNN | 64.29% | 64.07% | 64.29% | 64.14% |
-| prepo4 | SVM | **78.57%** | **78.49%** | **78.57%** | **78.48%** |
-| prepo4 | Random Forest | 66.67% | 66.67% | 66.67% | 66.67% |
-| prepo5 | KNN | 64.29% | 64.56% | 64.29% | 64.39% |
-| prepo5 | SVM | 66.67% | 66.67% | 66.67% | 66.67% |
-| prepo5 | Random Forest | **73.81%** | **74.04%** | **73.81%** | **73.88%** |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Resize + Grayscale | Random Forest | 92.86% | 93.75% | 92.86% | 92.82% |
+| Resize + Grayscale | SVM | 96.43% | 96.67% | 96.43% | 96.42% |
+| Resize + Grayscale | KNN | 92.86% | 93.75% | 92.86% | 92.82% |
+| Resize + Grayscale + Median Filter | Random Forest | 78.57% | 79.17% | 78.57% | 78.46% |
+| Resize + Grayscale + Median Filter | SVM | 100.00% | 100.00% | 100.00% | 100.00% |
+| Resize + Grayscale + Median Filter | KNN | 89.29% | 89.49% | 89.29% | 89.27% |
+| Resize + Grayscale + Median Filter + Histogram Equalization | Random Forest | 78.57% | 81.11% | 78.57% | 78.13% |
+| Resize + Grayscale + Median Filter + Histogram Equalization | SVM | 89.29% | 91.18% | 89.29% | 89.16% |
+| Resize + Grayscale + Median Filter + Histogram Equalization | KNN | 92.86% | 92.86% | 92.86% | 92.86% |
+| Resize + Grayscale + Median Filter + Sobel | Random Forest | 78.57% | 79.17% | 78.57% | 78.46% |
+| Resize + Grayscale + Median Filter + Sobel | SVM | 85.71% | 85.71% | 85.71% | 85.71% |
+| Resize + Grayscale + Median Filter + Sobel | KNN | 75.00% | 75.13% | 75.00% | 74.97% |
+| Resize + Grayscale + Median Filter + Sobel + Thresholding | Random Forest | 71.43% | 73.33% | 71.43% | 70.83% |
+| Resize + Grayscale + Median Filter + Sobel + Thresholding | SVM | 78.57% | 78.57% | 78.57% | 78.57% |
+| Resize + Grayscale + Median Filter + Sobel + Thresholding | KNN | 71.43% | 71.88% | 71.43% | 71.28% |
 
 Nilai pada tabel dapat diisi setelah notebook `03.klasifikasi.ipynb` dijalankan.
 
 ### Analisis Evaluasi
 Analisis:
 
-- Berdasarkan hasil pengujian, preprocessing 1 menunjukkan bahwa informasi dasar dari citra grayscale sudah mampu merepresentasikan karakteristik tekstur objek dengan sangat baik. Hal ini terlihat dari tingginya performa model, terutama SVM yang mencapai akurasi 90.48%. Hasil tersebut menunjukkan bahwa perbedaan tekstur antara kelas Caterpillar dan Snail masih dapat ditangkap dengan baik oleh fitur GLCM tanpa memerlukan pengolahan citra tambahan.
-- Pada preprocessing 2, performa model mengalami peningkatan dan menghasilkan hasil terbaik pada penelitian ini. Penggunaan median filter membantu mengurangi noise pada citra tanpa menghilangkan struktur utama objek, sehingga fitur tekstur yang diekstraksi menjadi lebih stabil dan lebih representatif. Kombinasi preprocessing ini dengan algoritma KNN menghasilkan akurasi tertinggi sebesar 95.24%.
-- Preprocessing 3 tidak memberikan peningkatan yang lebih baik dibanding preprocessing 2. Meskipun histogram equalization mampu meningkatkan kontras citra, perubahan distribusi intensitas piksel dapat memengaruhi pola tekstur asli yang digunakan oleh GLCM. Akibatnya, performa klasifikasi mengalami sedikit penurunan dibandingkan preprocessing terbaik.
-- Pada preprocessing 4, penambahan operator Sobel menghasilkan penurunan performa yang cukup signifikan. Informasi tepi yang dihasilkan memang dapat memperjelas bentuk objek, namun fitur tekstur yang menjadi fokus utama ekstraksi GLCM justru menjadi kurang dominan. Hal ini menyebabkan kemampuan model dalam membedakan kedua kelas menjadi menurun.
-- Preprocessing 5 menghasilkan performa yang lebih rendah dibandingkan preprocessing sebelumnya. Penggunaan thresholding mengubah citra menjadi lebih sederhana dengan menghilangkan banyak variasi tingkat keabuan yang sebenarnya mengandung informasi tekstur penting. Karena GLCM sangat bergantung pada hubungan antar tingkat intensitas piksel, hilangnya informasi tersebut menyebabkan kualitas fitur yang diekstraksi menjadi berkurang dan berdampak pada penurunan akurasi klasifikasi.
+- Berdasarkan hasil pengujian, preprocessing pertama (Resize → Grayscale) telah mampu menghasilkan performa yang sangat baik. Hal ini menunjukkan bahwa informasi tekstur pada citra hama masih dapat direpresentasikan dengan baik hanya menggunakan citra grayscale. Pada preprocessing ini, model SVM memperoleh akurasi sebesar 96,43%, sedangkan Random Forest dan KNN sama-sama memperoleh akurasi 92,86%.
+- Pada preprocessing kedua (Resize → Grayscale → Median Filter), performa model SVM meningkat hingga mencapai akurasi 100%. Hasil ini menunjukkan bahwa median filter berhasil mengurangi noise tanpa menghilangkan karakteristik utama objek sehingga fitur tekstur GLCM menjadi lebih konsisten dan mudah dipisahkan oleh model. KNN juga menunjukkan performa yang cukup baik dengan akurasi 89,29%.
+- Pada preprocessing ketiga (Resize → Grayscale → Median Filter → Histogram Equalization), performa model tidak mengalami peningkatan dibanding preprocessing kedua. Meskipun histogram equalization dapat meningkatkan kontras citra, perubahan distribusi intensitas piksel menyebabkan sebagian pola tekstur menjadi kurang stabil untuk proses ekstraksi fitur GLCM. Namun demikian, model KNN masih mampu mencapai akurasi 92,86%.
+- Pada preprocessing keempat (Resize → Grayscale → Median Filter → Sobel), performa seluruh model cenderung menurun. Penambahan deteksi tepi Sobel memang dapat memperjelas bentuk objek, tetapi pada kasus ini informasi tekstur yang menjadi fokus utama GLCM justru berkurang sehingga proses klasifikasi menjadi kurang optimal.
+- Pada preprocessing kelima (Resize → Grayscale → Median Filter → Sobel → Thresholding), performa model mengalami penurunan paling besar. Proses thresholding mengubah citra menjadi biner sehingga banyak informasi tekstur hilang. Akibatnya, fitur GLCM yang dihasilkan tidak lagi mampu merepresentasikan karakteristik setiap kelas secara optimal.
+
+Secara keseluruhan, algoritma SVM menunjukkan performa paling stabil dan menghasilkan akurasi tertinggi dibandingkan Random Forest maupun KNN. Hal ini menunjukkan bahwa SVM lebih mampu memanfaatkan fitur tekstur hasil ekstraksi GLCM untuk memisahkan ketiga kelas citra hama yang digunakan dalam penelitian ini.
 
 ---
 
@@ -495,10 +497,10 @@ Folder `preprocessing_output/` berisi hasil citra dari setiap tahapan preprocess
 
 ## Kesimpulan
 
-Penelitian ini mengevaluasi pengaruh lima teknik preprocessing citra terhadap klasifikasi gambar Caterpillar dan Snail menggunakan ekstraksi fitur GLCM dengan algoritma KNN, SVM, dan Random Forest. Berdasarkan hasil pengujian, tahapan preprocessing terbukti berpengaruh terhadap performa klasifikasi.
+Berdasarkan hasil penelitian yang telah dilakukan, dapat disimpulkan bahwa kombinasi preprocessing dan algoritma klasifikasi memberikan pengaruh yang signifikan terhadap performa sistem klasifikasi citra hama. Dari lima skenario preprocessing yang diuji, preprocessing Resize → Grayscale → Median Filter menghasilkan performa terbaik.
 
-Konfigurasi terbaik diperoleh pada Preprocessing 2, yaitu Resize → Grayscale → Median Filter, dengan algoritma KNN. Kombinasi ini menghasilkan accuracy sebesar 95,24%, precision sebesar 95,60%, recall sebesar 95,24%, dan F1-score sebesar 95,19%. Hasil tersebut menunjukkan bahwa median filter mampu mengurangi noise pada citra tanpa menghilangkan informasi tekstur penting yang dibutuhkan oleh GLCM.
+Hasil evaluasi menunjukkan bahwa algoritma Support Vector Machine (SVM) pada preprocessing tersebut memperoleh nilai Accuracy, Precision, Recall, dan F1-Score sebesar 100%. Hasil ini menunjukkan bahwa proses pengurangan noise menggunakan median filter mampu meningkatkan kualitas fitur tekstur yang diekstraksi menggunakan metode GLCM.
 
-Citra grayscale dasar juga sudah mampu merepresentasikan karakteristik tekstur objek dengan baik. Namun, penambahan preprocessing seperti Histogram Equalization, Sobel, dan Thresholding tidak meningkatkan performa secara signifikan, bahkan cenderung menurunkan akurasi. Hal ini menunjukkan bahwa transformasi citra yang terlalu berlebihan dapat mengubah atau menghilangkan detail tekstur penting.
+Sebaliknya, penambahan proses Sobel dan Thresholding cenderung menurunkan performa klasifikasi karena sebagian informasi tekstur yang penting untuk GLCM menjadi hilang. Oleh karena itu, preprocessing yang terlalu kompleks tidak selalu menghasilkan performa yang lebih baik.
 
-Secara keseluruhan, metode terbaik dalam penelitian ini adalah kombinasi GLCM, Preprocessing 2, dan KNN untuk membedakan citra Caterpillar dan Snail.
+Dengan demikian, dapat disimpulkan bahwa kombinasi GLCM sebagai metode ekstraksi fitur dan SVM sebagai model klasifikasi merupakan pendekatan yang paling efektif untuk dataset citra hama yang digunakan pada penelitian ini.
