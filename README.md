@@ -13,7 +13,6 @@
 Project ini merupakan implementasi Pengolahan Citra Digital (PCD) untuk melakukan klasifikasi citra hama tanaman berdasarkan dataset gambar. Dataset yang digunakan terdiri dari tiga kelas utama, yaitu:
 
 - `catterpillar`
-- `mouse`
 - `snail`
 
 Tujuan utama dari project ini adalah membandingkan beberapa tahapan preprocessing citra untuk melihat pengaruhnya terhadap hasil ekstraksi fitur dan performa model klasifikasi. Proses klasifikasi dilakukan dengan memanfaatkan fitur tekstur dari citra menggunakan metode **Gray Level Co-occurrence Matrix (GLCM)**, kemudian hasil fiturnya digunakan untuk melatih beberapa model machine learning.
@@ -35,7 +34,6 @@ Project-PCD-Kelompok-16/
 │
 ├── dataset/
 │   ├── catterpillar/
-│   ├── mouse/
 │   └── snail/
 │
 ├── percobaan/
@@ -92,7 +90,6 @@ Label yang digunakan:
 
 ```text
 catterpillar
-mouse
 snail
 ```
 
@@ -154,9 +151,8 @@ Distribusi dataset:
 | Label | Jumlah Data |
 |---|---:|
 | `catterpillar` | 70 gambar |
-| `mouse` | 70 gambar |
 | `snail` | 70 gambar |
-| **Total** | **210 gambar** |
+| **Total** | **140 gambar** |
 
 Karakteristik umum dataset:
 
@@ -342,8 +338,8 @@ y = df["Label"]
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y,
-    test_size=0.2,
-    random_state=42,
+    test_size=0.3,
+    random_state=90,
     stratify=y
 )
 ```
@@ -388,7 +384,7 @@ Contoh training model:
 ```python
 knn = KNeighborsClassifier()
 svm = SVC()
-rf = RandomForestClassifier(random_state=42)
+rf = RandomForestClassifier(random_state=90)
 
 knn.fit(X_train_scaled, y_train)
 svm.fit(X_train_scaled, y_train)
@@ -422,38 +418,44 @@ print(confusion_matrix(y_test, y_pred))
 Format tabel hasil evaluasi:
 
 | Preprocessing | Model | Accuracy | Precision | Recall | F1-Score |
-|---|---|---:|---:|---:|---:|
-| `prepo1` | KNN | 64.29% | 65.52% | 64.29% | 64.75% |
-| `prepo1` | SVM | 71.43% | 71.27% | 71.43% | 70.82% |
-| `prepo1` | Random Forest | 69.05% | 77.10% | 69.05% | 69.35% |
-| `prepo2` | KNN | 76.19% | 77.70% | 76.19% | 76.69% |
-| `prepo2` | SVM | 69.05% | 69.24% | 69.05% | 68.86% |
-| `prepo2` | Random Forest | 73.81% | 75.01% | 73.81% | 74.16% |
-| `prepo3` | KNN | 54.76% | 56.35% | 54.76% | 55.18% |
-| `prepo3` | SVM | 64.29% | 66.80% | 64.29% | 64.94% |
-| `prepo3` | Random Forest | 59.52% | 63.65% | 59.52% | 59.52% |
-| `prepo4` | KNN | 50.00% | 51.36% | 50.00% | 49.28% |
-| `prepo4` | SVM | 61.90% | 63.02% | 61.90% | 61.90% |
-| `prepo4` | Random Forest | 54.76% | 56.12% | 54.76% | 53.60% |
-| `prepo5` | KNN | 52.38% | 53.12% | 52.38% | 51.13% |
-| `prepo5` | SVM | 54.76% | 56.58% | 54.76% | 53.79% |
-| `prepo5` | Random Forest | 57.14% | 59.95% | 57.14% | 56.46% |
+|------------|------------|------------|------------|------------|------------|
+| prepo1 | KNN | 83.33% | 84.88% | 83.33% | 82.78% |
+| prepo1 | SVM | **90.48%** | **91.84%** | **90.48%** | **90.25%** |
+| prepo1 | Random Forest | 80.95% | 80.98% | 80.95% | 80.77% |
+| prepo2 | KNN | **95.24%** | **95.60%** | **95.24%** | **95.19%** |
+| prepo2 | SVM | 90.48% | 90.73% | 90.48% | 90.39% |
+| prepo2 | Random Forest | 73.81% | 74.83% | 73.81% | 73.94% |
+| prepo3 | KNN | 83.33% | 83.70% | 83.33% | 83.07% |
+| prepo3 | SVM | **88.10%** | **90.15%** | **88.10%** | **87.70%** |
+| prepo3 | Random Forest | 73.81% | 74.04% | 73.81% | 73.88% |
+| prepo4 | KNN | 64.29% | 64.07% | 64.29% | 64.14% |
+| prepo4 | SVM | **78.57%** | **78.49%** | **78.57%** | **78.48%** |
+| prepo4 | Random Forest | 66.67% | 66.67% | 66.67% | 66.67% |
+| prepo5 | KNN | 64.29% | 64.56% | 64.29% | 64.39% |
+| prepo5 | SVM | 66.67% | 66.67% | 66.67% | 66.67% |
+| prepo5 | Random Forest | **73.81%** | **74.04%** | **73.81%** | **73.88%** |
 
 Nilai pada tabel dapat diisi setelah notebook `03.klasifikasi.ipynb` dijalankan.
 
 ### Analisis Evaluasi
+Analisis:
 
-Hasil evaluasi digunakan untuk membandingkan pengaruh setiap preprocessing terhadap performa model. Preprocessing yang menghasilkan fitur tekstur paling representatif akan cenderung memberikan akurasi dan F1-score yang lebih baik.
+- Berdasarkan hasil pengujian, preprocessing 1 menunjukkan bahwa informasi dasar dari citra grayscale sudah mampu merepresentasikan karakteristik tekstur objek dengan sangat baik. Hal ini terlihat dari tingginya performa model, terutama SVM yang mencapai akurasi 90.48%. Hasil tersebut menunjukkan bahwa perbedaan tekstur antara kelas Caterpillar dan Snail masih dapat ditangkap dengan baik oleh fitur GLCM tanpa memerlukan pengolahan citra tambahan.
+- Pada preprocessing 2, performa model mengalami peningkatan dan menghasilkan hasil terbaik pada penelitian ini. Penggunaan median filter membantu mengurangi noise pada citra tanpa menghilangkan struktur utama objek, sehingga fitur tekstur yang diekstraksi menjadi lebih stabil dan lebih representatif. Kombinasi preprocessing ini dengan algoritma KNN menghasilkan akurasi tertinggi sebesar 95.24%.
+- Preprocessing 3 tidak memberikan peningkatan yang lebih baik dibanding preprocessing 2. Meskipun histogram equalization mampu meningkatkan kontras citra, perubahan distribusi intensitas piksel dapat memengaruhi pola tekstur asli yang digunakan oleh GLCM. Akibatnya, performa klasifikasi mengalami sedikit penurunan dibandingkan preprocessing terbaik.
+- Pada preprocessing 4, penambahan operator Sobel menghasilkan penurunan performa yang cukup signifikan. Informasi tepi yang dihasilkan memang dapat memperjelas bentuk objek, namun fitur tekstur yang menjadi fokus utama ekstraksi GLCM justru menjadi kurang dominan. Hal ini menyebabkan kemampuan model dalam membedakan kedua kelas menjadi menurun.
+- Preprocessing 5 menghasilkan performa yang lebih rendah dibandingkan preprocessing sebelumnya. Penggunaan thresholding mengubah citra menjadi lebih sederhana dengan menghilangkan banyak variasi tingkat keabuan yang sebenarnya mengandung informasi tekstur penting. Karena GLCM sangat bergantung pada hubungan antar tingkat intensitas piksel, hilangnya informasi tersebut menyebabkan kualitas fitur yang diekstraksi menjadi berkurang dan berdampak pada penurunan akurasi klasifikasi.
 
-Beberapa kemungkinan analisis:
+Kesimpulan:
 
-- Jika `prepo1` memiliki hasil cukup baik, berarti informasi grayscale dasar sudah cukup mewakili tekstur objek.
-- Jika `prepo2` meningkat, berarti median filter membantu mengurangi noise pada citra.
-- Jika `prepo3` meningkat, berarti histogram equalization membantu memperjelas kontras tekstur.
-- Jika `prepo4` meningkat, berarti informasi tepi dari Sobel membantu model membedakan bentuk objek.
-- Jika `prepo5` menurun, kemungkinan thresholding menghilangkan sebagian detail tekstur yang dibutuhkan GLCM.
+Penelitian ini mengevaluasi pengaruh lima teknik preprocessing citra terhadap klasifikasi gambar Caterpillar dan Snail menggunakan ekstraksi fitur GLCM dengan algoritma KNN, SVM, dan Random Forest. Berdasarkan hasil pengujian, tahapan preprocessing terbukti berpengaruh terhadap performa klasifikasi.
 
-Confusion matrix digunakan untuk melihat kelas mana yang paling sering salah diklasifikasikan. Jika dua kelas sering tertukar, kemungkinan keduanya memiliki pola tekstur atau bentuk visual yang mirip.
+Konfigurasi terbaik diperoleh pada Preprocessing 2, yaitu Resize → Grayscale → Median Filter, dengan algoritma KNN. Kombinasi ini menghasilkan accuracy sebesar 95,24%, precision sebesar 95,60%, recall sebesar 95,24%, dan F1-score sebesar 95,19%. Hasil tersebut menunjukkan bahwa median filter mampu mengurangi noise pada citra tanpa menghilangkan informasi tekstur penting yang dibutuhkan oleh GLCM.
+
+Citra grayscale dasar juga sudah mampu merepresentasikan karakteristik tekstur objek dengan baik. Namun, penambahan preprocessing seperti Histogram Equalization, Sobel, dan Thresholding tidak meningkatkan performa secara signifikan, bahkan cenderung menurunkan akurasi. Hal ini menunjukkan bahwa transformasi citra yang terlalu berlebihan dapat mengubah atau menghilangkan detail tekstur penting.
+
+Secara keseluruhan, metode terbaik dalam penelitian ini adalah kombinasi GLCM, Preprocessing 2, dan KNN untuk membedakan citra Caterpillar dan Snail.
+
 
 ---
 
