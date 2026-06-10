@@ -446,17 +446,6 @@ Analisis:
 - Pada preprocessing 4, penambahan operator Sobel menghasilkan penurunan performa yang cukup signifikan. Informasi tepi yang dihasilkan memang dapat memperjelas bentuk objek, namun fitur tekstur yang menjadi fokus utama ekstraksi GLCM justru menjadi kurang dominan. Hal ini menyebabkan kemampuan model dalam membedakan kedua kelas menjadi menurun.
 - Preprocessing 5 menghasilkan performa yang lebih rendah dibandingkan preprocessing sebelumnya. Penggunaan thresholding mengubah citra menjadi lebih sederhana dengan menghilangkan banyak variasi tingkat keabuan yang sebenarnya mengandung informasi tekstur penting. Karena GLCM sangat bergantung pada hubungan antar tingkat intensitas piksel, hilangnya informasi tersebut menyebabkan kualitas fitur yang diekstraksi menjadi berkurang dan berdampak pada penurunan akurasi klasifikasi.
 
-Kesimpulan:
-
-Penelitian ini mengevaluasi pengaruh lima teknik preprocessing citra terhadap klasifikasi gambar Caterpillar dan Snail menggunakan ekstraksi fitur GLCM dengan algoritma KNN, SVM, dan Random Forest. Berdasarkan hasil pengujian, tahapan preprocessing terbukti berpengaruh terhadap performa klasifikasi.
-
-Konfigurasi terbaik diperoleh pada Preprocessing 2, yaitu Resize → Grayscale → Median Filter, dengan algoritma KNN. Kombinasi ini menghasilkan accuracy sebesar 95,24%, precision sebesar 95,60%, recall sebesar 95,24%, dan F1-score sebesar 95,19%. Hasil tersebut menunjukkan bahwa median filter mampu mengurangi noise pada citra tanpa menghilangkan informasi tekstur penting yang dibutuhkan oleh GLCM.
-
-Citra grayscale dasar juga sudah mampu merepresentasikan karakteristik tekstur objek dengan baik. Namun, penambahan preprocessing seperti Histogram Equalization, Sobel, dan Thresholding tidak meningkatkan performa secara signifikan, bahkan cenderung menurunkan akurasi. Hal ini menunjukkan bahwa transformasi citra yang terlalu berlebihan dapat mengubah atau menghilangkan detail tekstur penting.
-
-Secara keseluruhan, metode terbaik dalam penelitian ini adalah kombinasi GLCM, Preprocessing 2, dan KNN untuk membedakan citra Caterpillar dan Snail.
-
-
 ---
 
 ## Cara Menjalankan Project
@@ -506,6 +495,10 @@ Folder `preprocessing_output/` berisi hasil citra dari setiap tahapan preprocess
 
 ## Kesimpulan
 
-Project ini menerapkan tahapan pengolahan citra digital untuk klasifikasi citra hama tanaman menggunakan ekstraksi fitur GLCM dan beberapa model machine learning. Lima skenario preprocessing digunakan untuk membandingkan pengaruh resize, grayscale, median filter, histogram equalization, Sobel, dan thresholding terhadap performa klasifikasi.
+Penelitian ini mengevaluasi pengaruh lima teknik preprocessing citra terhadap klasifikasi gambar Caterpillar dan Snail menggunakan ekstraksi fitur GLCM dengan algoritma KNN, SVM, dan Random Forest. Berdasarkan hasil pengujian, tahapan preprocessing terbukti berpengaruh terhadap performa klasifikasi.
 
-Melalui project ini, dapat dianalisis preprocessing mana yang paling sesuai untuk dataset hama tanaman berdasarkan hasil accuracy, precision, recall, F1-score, dan confusion matrix dari model KNN, SVM, dan Random Forest.
+Konfigurasi terbaik diperoleh pada Preprocessing 2, yaitu Resize → Grayscale → Median Filter, dengan algoritma KNN. Kombinasi ini menghasilkan accuracy sebesar 95,24%, precision sebesar 95,60%, recall sebesar 95,24%, dan F1-score sebesar 95,19%. Hasil tersebut menunjukkan bahwa median filter mampu mengurangi noise pada citra tanpa menghilangkan informasi tekstur penting yang dibutuhkan oleh GLCM.
+
+Citra grayscale dasar juga sudah mampu merepresentasikan karakteristik tekstur objek dengan baik. Namun, penambahan preprocessing seperti Histogram Equalization, Sobel, dan Thresholding tidak meningkatkan performa secara signifikan, bahkan cenderung menurunkan akurasi. Hal ini menunjukkan bahwa transformasi citra yang terlalu berlebihan dapat mengubah atau menghilangkan detail tekstur penting.
+
+Secara keseluruhan, metode terbaik dalam penelitian ini adalah kombinasi GLCM, Preprocessing 2, dan KNN untuk membedakan citra Caterpillar dan Snail.
