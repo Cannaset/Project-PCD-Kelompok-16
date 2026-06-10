@@ -425,21 +425,21 @@ Format tabel hasil evaluasi:
 
 | Preprocessing | Model | Accuracy | Precision | Recall | F1-Score |
 |---|---|---:|---:|---:|---:|
-| `prepo1` | KNN | - | - | - | - |
-| `prepo1` | SVM | - | - | - | - |
-| `prepo1` | Random Forest | - | - | - | - |
-| `prepo2` | KNN | - | - | - | - |
-| `prepo2` | SVM | - | - | - | - |
-| `prepo2` | Random Forest | - | - | - | - |
-| `prepo3` | KNN | - | - | - | - |
-| `prepo3` | SVM | - | - | - | - |
-| `prepo3` | Random Forest | - | - | - | - |
-| `prepo4` | KNN | - | - | - | - |
-| `prepo4` | SVM | - | - | - | - |
-| `prepo4` | Random Forest | - | - | - | - |
-| `prepo5` | KNN | - | - | - | - |
-| `prepo5` | SVM | - | - | - | - |
-| `prepo5` | Random Forest | - | - | - | - |
+| `prepo1` | KNN | 64.29% | 65.52% | 64.29% | 64.75% |
+| `prepo1` | SVM | 71.43% | 71.27% | 71.43% | 70.82% |
+| `prepo1` | Random Forest | 69.05% | 77.10% | 69.05% | 69.35% |
+| `prepo2` | KNN | 76.19% | 77.70% | 76.19% | 76.69% |
+| `prepo2` | SVM | 69.05% | 69.24% | 69.05% | 68.86% |
+| `prepo2` | Random Forest | 73.81% | 75.01% | 73.81% | 74.16% |
+| `prepo3` | KNN | 54.76% | 56.35% | 54.76% | 55.18% |
+| `prepo3` | SVM | 64.29% | 66.80% | 64.29% | 64.94% |
+| `prepo3` | Random Forest | 59.52% | 63.65% | 59.52% | 59.52% |
+| `prepo4` | KNN | 50.00% | 51.36% | 50.00% | 49.28% |
+| `prepo4` | SVM | 61.90% | 63.02% | 61.90% | 61.90% |
+| `prepo4` | Random Forest | 54.76% | 56.12% | 54.76% | 53.60% |
+| `prepo5` | KNN | 52.38% | 53.12% | 52.38% | 51.13% |
+| `prepo5` | SVM | 54.76% | 56.58% | 54.76% | 53.79% |
+| `prepo5` | Random Forest | 57.14% | 59.95% | 57.14% | 56.46% |
 
 Nilai pada tabel dapat diisi setelah notebook `03.klasifikasi.ipynb` dijalankan.
 
