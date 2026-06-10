@@ -1,6 +1,4 @@
-# Project-PCD-Kelompok-16
-
-# Klasifikasi Citra Hama Tanaman Menggunakan GLCM dan Machine Learning
+# Klasifikasi Hama Pertanian Ulat, Siput, dan Tikus Berbasis Citra Menggunakan KNN, SVM, dan Random Forest
 
 ## Nama Anggota
 - KANAYA SALSABILA HUMAIRA : F2D02410061
