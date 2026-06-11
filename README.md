@@ -419,21 +419,21 @@ Format tabel hasil evaluasi:
 
 | Preprocessing | Model | Train Accuracy | Test Accuracy | F1-Score |
 | :--- | :--- | :---: | :---: | :---: |
-| prepo1_resize+grayscale | Random Forest | 0.9821 | 0.9286 | 0.9286 |
-| prepo1_resize+grayscale | SVM | 0.8750 | 0.9286 | 0.9282 |
-| prepo1_resize+grayscale | KNN | 0.8393 | 0.8929 | 0.8927 |
-| prepo2_resize+grayscale+median | Random Forest | 0.9643 | 0.9286 | 0.9286 |
-| prepo2_resize+grayscale+median | SVM | 0.8661 | 0.8929 | 0.8927 |
-| prepo2_resize+grayscale+median | KNN | 0.8929 | 0.8571 | 0.8571 |
-| prepo3_resize+grayscale+median+equ | Random Forest | 0.9554 | 0.7143 | 0.7143 |
-| prepo3_resize+grayscale+median+equ | SVM | 0.8750 | 0.8214 | 0.8194 |
-| prepo3_resize+grayscale+median+equ | KNN | 0.8571 | 0.8214 | 0.8194 |
-| prepo4_resize+grayscale+median+sobel | Random Forest | 0.9554 | 0.7500 | 0.7471 |
-| prepo4_resize+grayscale+median+sobel | SVM | 0.7946 | 0.8571 | 0.8564 |
-| prepo4_resize+grayscale+median+sobel | KNN | 0.7857 | 0.7857 | 0.7812 |
-| prepo5_resize+grayscale+median+sobel+thresholding | Random Forest | 0.9821 | 0.6429 | 0.6410 |
-| prepo5_resize+grayscale+median+sobel+thresholding | SVM | 0.8036 | 0.6429 | 0.6354 |
-| prepo5_resize+grayscale+median+sobel+thresholding | KNN | 0.7679 | 0.6429 | 0.6429 |
+| Resize → Grayscale | Random Forest | 0.9821 | 0.9286 | 0.9286 |
+| Resize → Grayscale | SVM | 0.8750 | 0.9286 | 0.9282 |
+| Resize → Grayscale | KNN | 0.8393 | 0.8929 | 0.8927 |
+| Resize → Grayscale → Median Filter | Random Forest | 0.9643 | 0.9286 | 0.9286 |
+| Resize → Grayscale → Median Filter | SVM | 0.8661 | 0.8929 | 0.8927 |
+| Resize → Grayscale → Median Filter | KNN | 0.8929 | 0.8571 | 0.8571 |
+| Resize → Grayscale → Median Filter → Histogram Equalization | Random Forest | 0.9554 | 0.7143 | 0.7143 |
+| Resize → Grayscale → Median Filter → Histogram Equalization | SVM | 0.8750 | 0.8214 | 0.8194 |
+| Resize → Grayscale → Median Filter → Histogram Equalization | KNN | 0.8571 | 0.8214 | 0.8194 |
+| Resize → Grayscale → Median Filter → Sobel | Random Forest | 0.9554 | 0.7500 | 0.7471 |
+| Resize → Grayscale → Median Filter → Sobel | SVM | 0.7946 | 0.8571 | 0.8564 |
+| Resize → Grayscale → Median Filter → Sobel | KNN | 0.7857 | 0.7857 | 0.7812 |
+| Resize → Grayscale → Median Filter → Sobel → Thresholding | Random Forest | 0.9821 | 0.6429 | 0.6410 |
+| Resize → Grayscale → Median Filter → Sobel → Thresholding | SVM | 0.8036 | 0.6429 | 0.6354 |
+| Resize → Grayscale → Median Filter → Sobel → Thresholding | KNN | 0.7679 | 0.6429 | 0.6429 |
 
 Nilai pada tabel dapat diisi setelah notebook `03.klasifikasi.ipynb` dijalankan.
 
@@ -502,10 +502,12 @@ Folder `preprocessing_output/` berisi hasil citra dari setiap tahapan preprocess
 
 ## Kesimpulan
 
-Berdasarkan hasil penelitian yang telah dilakukan, dapat disimpulkan bahwa kombinasi preprocessing dan algoritma klasifikasi memberikan pengaruh yang signifikan terhadap performa sistem klasifikasi citra hama. Dari lima skenario preprocessing yang diuji, preprocessing Resize → Grayscale → Median Filter menghasilkan performa terbaik.
+Berdasarkan hasil penelitian yang telah dilakukan, dapat disimpulkan bahwa tahapan preprocessing berpengaruh terhadap performa klasifikasi citra hama menggunakan fitur GLCM dan model machine learning.
 
-Hasil evaluasi menunjukkan bahwa algoritma Support Vector Machine (SVM) pada preprocessing tersebut memperoleh nilai Accuracy, Precision, Recall, dan F1-Score sebesar 100%. Hasil ini menunjukkan bahwa proses pengurangan noise menggunakan median filter mampu meningkatkan kualitas fitur tekstur yang diekstraksi menggunakan metode GLCM.
+Dari lima skenario preprocessing yang diuji, preprocessing Resize → Grayscale dan Resize → Grayscale → Median Filter menghasilkan performa terbaik dengan algoritma Random Forest, yaitu memperoleh test accuracy sebesar 92,86%. Hal ini menunjukkan bahwa informasi tekstur pada citra hama sudah dapat direpresentasikan dengan baik menggunakan citra grayscale, sehingga preprocessing yang terlalu kompleks tidak selalu memberikan peningkatan performa.
 
-Sebaliknya, penambahan proses Sobel dan Thresholding cenderung menurunkan performa klasifikasi karena sebagian informasi tekstur yang penting untuk GLCM menjadi hilang. Oleh karena itu, preprocessing yang terlalu kompleks tidak selalu menghasilkan performa yang lebih baik.
+Preprocessing Resize → Grayscale → Median Filter dapat dikatakan sedikit lebih stabil karena menghasilkan akurasi testing yang sama dengan preprocessing pertama, tetapi dengan selisih train accuracy dan test accuracy yang lebih kecil. Hal ini menunjukkan bahwa median filter mampu mengurangi noise pada citra tanpa terlalu menghilangkan karakteristik tekstur utama objek.
 
-Dengan demikian, dapat disimpulkan bahwa kombinasi GLCM sebagai metode ekstraksi fitur dan SVM sebagai model klasifikasi merupakan pendekatan yang paling efektif untuk dataset citra hama yang digunakan pada penelitian ini.
+Sebaliknya, penambahan preprocessing seperti Histogram Equalization, Sobel, dan Thresholding cenderung menurunkan performa klasifikasi. Hal ini terjadi karena proses tersebut dapat mengubah atau menghilangkan sebagian informasi tekstur yang dibutuhkan oleh GLCM untuk membedakan setiap kelas.
+
+Secara keseluruhan, kombinasi Resize → Grayscale → Median Filter, ekstraksi fitur GLCM, dan model klasifikasi Random Forest menjadi pendekatan yang paling direkomendasikan pada project ini karena mampu menghasilkan akurasi tinggi dengan indikasi generalisasi yang lebih baik.
