@@ -417,23 +417,23 @@ print(confusion_matrix(y_test, y_pred))
 
 Format tabel hasil evaluasi:
 
-| Preprocessing | Model | Train Accuracy | Test Accuracy | F1-Score |
-| :--- | :--- | :---: | :---: | :---: |
-| Resize → Grayscale | Random Forest | 0.9821 | 0.9286 | 0.9286 |
-| Resize → Grayscale | SVM | 0.8750 | 0.9286 | 0.9282 |
-| Resize → Grayscale | KNN | 0.8393 | 0.8929 | 0.8927 |
-| Resize → Grayscale → Median Filter | Random Forest | 0.9643 | 0.9286 | 0.9286 |
-| Resize → Grayscale → Median Filter | SVM | 0.8661 | 0.8929 | 0.8927 |
-| Resize → Grayscale → Median Filter | KNN | 0.8929 | 0.8571 | 0.8571 |
-| Resize → Grayscale → Median Filter → Histogram Equalization | Random Forest | 0.9554 | 0.7143 | 0.7143 |
-| Resize → Grayscale → Median Filter → Histogram Equalization | SVM | 0.8750 | 0.8214 | 0.8194 |
-| Resize → Grayscale → Median Filter → Histogram Equalization | KNN | 0.8571 | 0.8214 | 0.8194 |
-| Resize → Grayscale → Median Filter → Sobel | Random Forest | 0.9554 | 0.7500 | 0.7471 |
-| Resize → Grayscale → Median Filter → Sobel | SVM | 0.7946 | 0.8571 | 0.8564 |
-| Resize → Grayscale → Median Filter → Sobel | KNN | 0.7857 | 0.7857 | 0.7812 |
-| Resize → Grayscale → Median Filter → Sobel → Thresholding | Random Forest | 0.9821 | 0.6429 | 0.6410 |
-| Resize → Grayscale → Median Filter → Sobel → Thresholding | SVM | 0.8036 | 0.6429 | 0.6354 |
-| Resize → Grayscale → Median Filter → Sobel → Thresholding | KNN | 0.7679 | 0.6429 | 0.6429 |
+| Preprocessing                                               | Model         | Train Accuracy   | Test Accuracy   | F1-Score   |
+|:------------------------------------------------------------|:--------------|:-----------------|:----------------|:-----------|
+| Resize → Grayscale                                          | Random Forest | 98.21%           | 92.86%          | 92.86%     |
+| Resize → Grayscale                                          | SVM           | 87.50%           | 92.86%          | 92.82%     |
+| Resize → Grayscale                                          | KNN           | 83.93%           | 89.29%          | 89.27%     |
+| Resize → Grayscale → Median Filter                          | Random Forest | 96.43%           | 92.86%          | 92.86%     |
+| Resize → Grayscale → Median Filter                          | SVM           | 86.61%           | 89.29%          | 89.27%     |
+| Resize → Grayscale → Median Filter                          | KNN           | 89.29%           | 85.71%          | 85.71%     |
+| Resize → Grayscale → Median Filter → Histogram Equalization | Random Forest | 95.54%           | 71.43%          | 71.43%     |
+| Resize → Grayscale → Median Filter → Histogram Equalization | SVM           | 87.50%           | 82.14%          | 81.94%     |
+| Resize → Grayscale → Median Filter → Histogram Equalization | KNN           | 85.71%           | 82.14%          | 81.94%     |
+| Resize → Grayscale → Median Filter → Sobel                  | Random Forest | 95.54%           | 75.00%          | 74.71%     |
+| Resize → Grayscale → Median Filter → Sobel                  | SVM           | 79.46%           | 85.71%          | 85.64%     |
+| Resize → Grayscale → Median Filter → Sobel                  | KNN           | 78.57%           | 78.57%          | 78.12%     |
+| Resize → Grayscale → Median Filter → Sobel → Thresholding   | Random Forest | 98.21%           | 64.29%          | 64.10%     |
+| Resize → Grayscale → Median Filter → Sobel → Thresholding   | SVM           | 80.36%           | 64.29%          | 63.54%     |
+| Resize → Grayscale → Median Filter → Sobel → Thresholding   | KNN           | 76.79%           | 64.29%          | 64.29%     |
 
 Nilai pada tabel dapat diisi setelah notebook `03.klasifikasi.ipynb` dijalankan.
 
