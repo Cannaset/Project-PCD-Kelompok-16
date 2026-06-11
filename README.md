@@ -339,7 +339,7 @@ y = df["Label"]
 X_train, X_test, y_train, y_test = train_test_split(
     X, y,
     test_size=0.2,
-    random_state=35,
+    random_state=64,
     stratify=y
 )
 ```
@@ -417,36 +417,41 @@ print(confusion_matrix(y_test, y_pred))
 
 Format tabel hasil evaluasi:
 
-| Preprocessing | Model | Accuracy | Precision | Recall | F1-Score |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| Resize + Grayscale | Random Forest | 92.86% | 93.75% | 92.86% | 92.82% |
-| Resize + Grayscale | SVM | 96.43% | 96.67% | 96.43% | 96.42% |
-| Resize + Grayscale | KNN | 92.86% | 93.75% | 92.86% | 92.82% |
-| Resize + Grayscale + Median Filter | Random Forest | 78.57% | 79.17% | 78.57% | 78.46% |
-| Resize + Grayscale + Median Filter | SVM | 100.00% | 100.00% | 100.00% | 100.00% |
-| Resize + Grayscale + Median Filter | KNN | 89.29% | 89.49% | 89.29% | 89.27% |
-| Resize + Grayscale + Median Filter + Histogram Equalization | Random Forest | 78.57% | 81.11% | 78.57% | 78.13% |
-| Resize + Grayscale + Median Filter + Histogram Equalization | SVM | 89.29% | 91.18% | 89.29% | 89.16% |
-| Resize + Grayscale + Median Filter + Histogram Equalization | KNN | 92.86% | 92.86% | 92.86% | 92.86% |
-| Resize + Grayscale + Median Filter + Sobel | Random Forest | 78.57% | 79.17% | 78.57% | 78.46% |
-| Resize + Grayscale + Median Filter + Sobel | SVM | 85.71% | 85.71% | 85.71% | 85.71% |
-| Resize + Grayscale + Median Filter + Sobel | KNN | 75.00% | 75.13% | 75.00% | 74.97% |
-| Resize + Grayscale + Median Filter + Sobel + Thresholding | Random Forest | 71.43% | 73.33% | 71.43% | 70.83% |
-| Resize + Grayscale + Median Filter + Sobel + Thresholding | SVM | 78.57% | 78.57% | 78.57% | 78.57% |
-| Resize + Grayscale + Median Filter + Sobel + Thresholding | KNN | 71.43% | 71.88% | 71.43% | 71.28% |
+| Preprocessing | Model | Train Accuracy | Test Accuracy | F1-Score |
+| :--- | :--- | :---: | :---: | :---: |
+| prepo1_resize+grayscale | Random Forest | 0.9821 | 0.9286 | 0.9286 |
+| prepo1_resize+grayscale | SVM | 0.8750 | 0.9286 | 0.9282 |
+| prepo1_resize+grayscale | KNN | 0.8393 | 0.8929 | 0.8927 |
+| prepo2_resize+grayscale+median | Random Forest | 0.9643 | 0.9286 | 0.9286 |
+| prepo2_resize+grayscale+median | SVM | 0.8661 | 0.8929 | 0.8927 |
+| prepo2_resize+grayscale+median | KNN | 0.8929 | 0.8571 | 0.8571 |
+| prepo3_resize+grayscale+median+equ | Random Forest | 0.9554 | 0.7143 | 0.7143 |
+| prepo3_resize+grayscale+median+equ | SVM | 0.8750 | 0.8214 | 0.8194 |
+| prepo3_resize+grayscale+median+equ | KNN | 0.8571 | 0.8214 | 0.8194 |
+| prepo4_resize+grayscale+median+sobel | Random Forest | 0.9554 | 0.7500 | 0.7471 |
+| prepo4_resize+grayscale+median+sobel | SVM | 0.7946 | 0.8571 | 0.8564 |
+| prepo4_resize+grayscale+median+sobel | KNN | 0.7857 | 0.7857 | 0.7812 |
+| prepo5_resize+grayscale+median+sobel+thresholding | Random Forest | 0.9821 | 0.6429 | 0.6410 |
+| prepo5_resize+grayscale+median+sobel+thresholding | SVM | 0.8036 | 0.6429 | 0.6354 |
+| prepo5_resize+grayscale+median+sobel+thresholding | KNN | 0.7679 | 0.6429 | 0.6429 |
 
 Nilai pada tabel dapat diisi setelah notebook `03.klasifikasi.ipynb` dijalankan.
 
 ### Analisis Evaluasi
-Analisis:
 
-- Berdasarkan hasil pengujian, preprocessing pertama (Resize → Grayscale) telah mampu menghasilkan performa yang sangat baik. Hal ini menunjukkan bahwa informasi tekstur pada citra hama masih dapat direpresentasikan dengan baik hanya menggunakan citra grayscale. Pada preprocessing ini, model SVM memperoleh akurasi sebesar 96,43%, sedangkan Random Forest dan KNN sama-sama memperoleh akurasi 92,86%.
-- Pada preprocessing kedua (Resize → Grayscale → Median Filter), performa model SVM meningkat hingga mencapai akurasi 100%. Hasil ini menunjukkan bahwa median filter berhasil mengurangi noise tanpa menghilangkan karakteristik utama objek sehingga fitur tekstur GLCM menjadi lebih konsisten dan mudah dipisahkan oleh model. KNN juga menunjukkan performa yang cukup baik dengan akurasi 89,29%.
-- Pada preprocessing ketiga (Resize → Grayscale → Median Filter → Histogram Equalization), performa model tidak mengalami peningkatan dibanding preprocessing kedua. Meskipun histogram equalization dapat meningkatkan kontras citra, perubahan distribusi intensitas piksel menyebabkan sebagian pola tekstur menjadi kurang stabil untuk proses ekstraksi fitur GLCM. Namun demikian, model KNN masih mampu mencapai akurasi 92,86%.
-- Pada preprocessing keempat (Resize → Grayscale → Median Filter → Sobel), performa seluruh model cenderung menurun. Penambahan deteksi tepi Sobel memang dapat memperjelas bentuk objek, tetapi pada kasus ini informasi tekstur yang menjadi fokus utama GLCM justru berkurang sehingga proses klasifikasi menjadi kurang optimal.
-- Pada preprocessing kelima (Resize → Grayscale → Median Filter → Sobel → Thresholding), performa model mengalami penurunan paling besar. Proses thresholding mengubah citra menjadi biner sehingga banyak informasi tekstur hilang. Akibatnya, fitur GLCM yang dihasilkan tidak lagi mampu merepresentasikan karakteristik setiap kelas secara optimal.
+- Berdasarkan hasil pengujian, preprocessing pertama (Resize → Grayscale) menghasilkan performa yang sangat baik. Model Random Forest dan SVM sama-sama memperoleh test accuracy sebesar 92,86%, sedangkan KNN memperoleh 89,29%. Hasil ini menunjukkan bahwa informasi tekstur pada citra hama masih dapat direpresentasikan dengan baik hanya menggunakan citra grayscale tanpa memerlukan tahapan preprocessing tambahan yang kompleks.
 
-Secara keseluruhan, algoritma SVM menunjukkan performa paling stabil dan menghasilkan akurasi tertinggi dibandingkan Random Forest maupun KNN. Hal ini menunjukkan bahwa SVM lebih mampu memanfaatkan fitur tekstur hasil ekstraksi GLCM untuk memisahkan ketiga kelas citra hama yang digunakan dalam penelitian ini.
+- Pada preprocessing kedua (Resize → Grayscale → Median Filter), performa model tetap berada pada tingkat yang sangat baik. Model Random Forest kembali memperoleh test accuracy sebesar 92,86%, sedangkan SVM memperoleh 89,29% dan KNN memperoleh 85,71%. Penggunaan median filter membantu mengurangi noise pada citra tanpa menghilangkan karakteristik utama objek, sehingga kualitas fitur tekstur hasil ekstraksi GLCM tetap terjaga.
+
+- Pada preprocessing ketiga (Resize → Grayscale → Median Filter → Histogram Equalization), performa model mulai mengalami penurunan. Model SVM dan KNN memperoleh test accuracy sebesar 82,14%, sedangkan Random Forest memperoleh 71,43%. Meskipun histogram equalization dapat meningkatkan kontras citra, perubahan distribusi intensitas piksel kemungkinan menyebabkan pola tekstur menjadi kurang konsisten untuk proses ekstraksi fitur GLCM.
+
+- Pada preprocessing keempat (Resize → Grayscale → Median Filter → Sobel), performa model menunjukkan hasil yang bervariasi. SVM memperoleh akurasi tertinggi sebesar 85,71%, KNN sebesar 78,57%, dan Random Forest sebesar 75,00%. Penambahan deteksi tepi Sobel memang dapat memperjelas kontur objek, namun sebagian informasi tekstur yang menjadi fokus utama GLCM ikut berkurang sehingga performa klasifikasi tidak mampu melampaui preprocessing pertama maupun kedua.
+
+- Pada preprocessing kelima (Resize → Grayscale → Median Filter → Sobel → Thresholding), performa seluruh model mengalami penurunan yang cukup signifikan. Random Forest, SVM, dan KNN masing-masing hanya memperoleh test accuracy sebesar 64,29%. Proses thresholding mengubah citra menjadi bentuk biner sehingga sebagian besar informasi tekstur hilang. Akibatnya, fitur GLCM yang dihasilkan menjadi kurang representatif untuk membedakan setiap kelas.
+
+Secara keseluruhan, preprocessing pertama dan kedua menghasilkan performa terbaik dengan test accuracy tertinggi sebesar 92,86% menggunakan algoritma Random Forest. Hal ini menunjukkan bahwa fitur tekstur asli pada citra sudah cukup baik untuk proses klasifikasi, sementara penambahan preprocessing yang terlalu kompleks justru cenderung menurunkan kualitas fitur yang diekstraksi.
+
+Dari sisi model, Random Forest menunjukkan performa paling konsisten dan memperoleh hasil terbaik pada sebagian besar skenario preprocessing. Selain memiliki test accuracy tertinggi, Random Forest juga mampu mempertahankan performa yang baik meskipun jumlah fitur hasil seleksi berbeda pada setiap preprocessing. Oleh karena itu, Random Forest menjadi algoritma yang paling sesuai untuk klasifikasi citra hama pada penelitian ini.
 
 ---
 
