@@ -1,4 +1,4 @@
-# Klasifikasi Hama Pertanian Ulat, Siput, dan Tikus Berbasis Citra Menggunakan KNN, SVM, dan Random Forest
+# Klasifikasi Hama Pertanian Ulat dan Siput Berbasis Citra Menggunakan KNN, SVM, dan Random Forest
 
 ## Nama Anggota
 - TEGUH IMAM AZKARI : F1D021069
